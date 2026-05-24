@@ -1,0 +1,10 @@
+---
+title: "Test Lecture"
+date: 2026-05-24
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+---
+
+## Welcome to SEM

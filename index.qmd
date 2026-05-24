@@ -1,0 +1,28 @@
+---
+title: "EDEP 625 Structural Equation Modeling"
+listing:
+  - id: lectures
+    contents: lectures/*.qmd
+    type: table
+    fields: [title, date]
+    sort: "date desc"
+    sort-ui: false
+    filter-ui: false
+  - id: labs
+    contents: rlabs/*.qmd
+    type: table
+    fields: [title, date]
+    sort: "date desc"
+    sort-ui: false
+    filter-ui: false
+---
+
+# Lectures
+
+::: {#lectures}
+:::
+
+# Labs
+
+::: {#labs}
+:::

@@ -1,0 +1,20 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "EDEP 625 Structural Equation Modeling"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: index.qmd#lectures
+        text: Lectures
+      - href: index.qmd#labs
+        text: Labs
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-tools: true
