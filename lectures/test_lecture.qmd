@@ -11,6 +11,14 @@ format:
 
 ## Welcome to SEM
 
+Question: What's the best kind of stats?
+
+::: {.content-visible when-profile="teacher"}
+::: {.fragment}
+Answer: Multivariate
+:::
+:::
+
 ::: {.content-visible when-profile="teacher"}
 ::: {.notes}
 ask students to introduce themselves
