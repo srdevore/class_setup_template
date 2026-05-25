@@ -1,6 +1,10 @@
 # Course-level configuration. Single source of truth for course-wide
 # values used by the syllabus, lecture headers, and other pages.
 # Edit these per class/semester.
+#
+# NOTE: when changing `course_name`, also update:
+#   - `website.title` in _quarto.yml (navbar title)
+#   - `title:` in index.qmd (home page H1)
 
 course_name: "EDEP 625 Structural Equation Modeling"
 course_instructor: "Instructor Name"

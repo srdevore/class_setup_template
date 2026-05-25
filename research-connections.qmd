@@ -1,5 +1,6 @@
 ---
 title: "Research Connections"
+description: '<a href="research-connections.pdf" download>Download PDF</a>'
 format:
   html:
     toc: true

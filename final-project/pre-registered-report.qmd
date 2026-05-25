@@ -1,5 +1,6 @@
 ---
 title: "Pre-registered Report"
+description: '<a href="final-project/pre-registered-report.pdf" download>Download PDF</a>'
 format:
   html:
     toc: true

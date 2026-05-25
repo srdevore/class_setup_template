@@ -1,5 +1,6 @@
 ---
 title: "Proposal"
+description: '<a href="final-project/proposal.pdf" download>Download PDF</a>'
 format:
   html:
     toc: true

@@ -13,84 +13,67 @@ format:
 #| echo: false
 #| message: false
 #| output: asis
-library(yaml)
-config <- read_yaml("_class-config.yml")
-sched  <- read_yaml("_schedule.yml")
+source("R/schedule.R")
 
-cat(sprintf("**%s**\n\n", config$course_name))
-cat(sprintf("| | |\n|---|---|\n"))
-cat(sprintf("| Instructor | %s |\n", config$course_instructor))
-cat(sprintf("| Email | <%s> |\n", config$course_instructor_email))
-cat(sprintf("| Meeting time | %s |\n\n", config$course_meeting_time))
+cat(sprintf("**%s**\n\n", class_config$course_name))
+cat("| | |\n|---|---|\n")
+cat(sprintf("| Instructor | %s |\n", class_config$course_instructor))
+cat(sprintf("| Email | <%s> |\n", class_config$course_instructor_email))
+cat(sprintf("| Meeting time | %s |\n\n", class_config$course_meeting_time))
 ```
 
 ::: {.content-visible when-format="html"}
 [Download PDF](syllabus.pdf){.btn .btn-primary download="syllabus.pdf" role="button"}
 :::
 
+## Course Description
+
+[Describe the course here: scope, themes, the substantive questions it addresses, and how it fits into the broader program of study.]
+
+## Learning Objectives
+
+By the end of this course, students will be able to:
+
+- [Learning objective 1]
+- [Learning objective 2]
+- [Learning objective 3]
+
+## Required Materials
+
+- [Required textbook(s)]
+- [Required software / tools]
+- [Other materials]
+
+## Grading
+
+| Component | Weight |
+|---|---|
+| [Assignment 1] | [%] |
+| [Assignment 2] | [%] |
+| [Final project] | [%] |
+| [Participation] | [%] |
+
+## Course Policies
+
+### Attendance
+
+[Attendance policy.]
+
+### Late work
+
+[Late work policy.]
+
+### Academic integrity
+
+[Academic integrity statement.]
+
+### Accommodations
+
+[Accessibility / accommodations statement.]
+
 ## Class Schedule
 
 ```{r}
 #| echo: false
-#| message: false
-
-day_nums <- match(config$class_days,
-                  c("Sunday","Monday","Tuesday","Wednesday",
-                    "Thursday","Friday","Saturday")) - 1
-start_date <- as.Date(config$class_start)
-end_date   <- start_date + (config$weeks * 7 - 1)
-
-all_dates     <- seq(start_date, end_date, by = "day")
-meeting_dates <- all_dates[as.POSIXlt(all_dates)$wday %in% day_nums]
-
-ref_monday <- meeting_dates[1] -
-              (as.integer(format(meeting_dates[1], "%u")) - 1)
-weeks_col <- as.integer(floor(as.numeric(meeting_dates - ref_monday) / 7) + 1)
-
-holiday_keys <- names(config$holidays)
-holiday_vals <- unlist(config$holidays, use.names = FALSE)
-is_holiday <- as.character(meeting_dates) %in% holiday_keys
-
-n <- length(meeting_dates)
-topics  <- character(n)
-preps   <- character(n)
-turnins <- character(n)
-
-if (any(is_holiday)) {
-  topics[is_holiday] <-
-    holiday_vals[match(as.character(meeting_dates[is_holiday]), holiday_keys)]
-}
-
-get_field <- function(s, field) {
-  v <- s[[field]]
-  if (is.null(v)) "" else as.character(v)
-}
-sessions      <- sched$sessions
-sess_topic    <- vapply(sessions, get_field, character(1), "topic")
-sess_prep     <- vapply(sessions, get_field, character(1), "prep")
-sess_turn_in  <- vapply(sessions, get_field, character(1), "turn_in")
-
-class_idx <- which(!is_holiday)
-n_class   <- length(class_idx)
-if (length(sess_topic) < n_class) {
-  pad <- n_class - length(sess_topic)
-  sess_topic   <- c(sess_topic, rep("TBD", pad))
-  sess_prep    <- c(sess_prep, rep("", pad))
-  sess_turn_in <- c(sess_turn_in, rep("", pad))
-}
-topics[class_idx]  <- sess_topic[seq_len(n_class)]
-preps[class_idx]   <- sess_prep[seq_len(n_class)]
-turnins[class_idx] <- sess_turn_in[seq_len(n_class)]
-
-schedule <- data.frame(
-  Week        = weeks_col,
-  Date        = format(meeting_dates, "%a, %b %d, %Y"),
-  Topic       = topics,
-  Prep        = preps,
-  `Turn in`   = turnins,
-  check.names = FALSE,
-  stringsAsFactors = FALSE
-)
-
-knitr::kable(schedule)
+knitr::kable(class_schedule_df)
 ```
