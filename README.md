@@ -9,8 +9,12 @@ Features:
 - students can download the student version as pdf.  
 - Examples of show on click for the teacher version so teacher can show answers (not rendered on student version)
 3. Class schedule: Weeks and dates automatically populated based on semester start/end date and class cadence. 
+4. If you post materials in advance, you can specify when they are published to the site for students to see. This requires pushing within time frame.
+- show week X: automatically shows one hour before first class of week starts (must push within 1 hr of class start)
+
 
 # Quickstart
+
 Shows default (student) profile on public website.
 
 
