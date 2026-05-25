@@ -2,6 +2,9 @@ project:
   type: website
   output-dir: _site
 
+profile:
+  default: student
+
 website:
   title: "EDEP 625 Structural Equation Modeling"
   navbar:

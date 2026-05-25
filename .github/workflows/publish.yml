@@ -36,6 +36,23 @@ jobs:
       - name: Render site
         uses: quarto-dev/quarto-actions/render@v2
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Decktape
+        run: npm install -g decktape
+
+      - name: Convert lecture decks to PDF
+        run: |
+          shopt -s nullglob
+          for html in _site/lectures/*.html; do
+            pdf="${html%.html}.pdf"
+            echo "Converting $html -> $pdf"
+            decktape reveal --chrome-arg=--no-sandbox "$html" "$pdf"
+          done
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

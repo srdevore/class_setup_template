@@ -1,10 +1,16 @@
 ---
 title: "Test Lecture"
 date: 2026-05-24
+description: "[Download PDF](test_lecture.pdf)"
 format:
   revealjs:
     theme: simple
     slide-number: true
+    embed-resources: true
 ---
 
 ## Welcome to SEM
+
+::: {.content-visible when-profile="teacher"}
+**Teacher note:** ask students to introduce themselves
+:::
