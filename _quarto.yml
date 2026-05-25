@@ -17,6 +17,8 @@ website:
         text: Lectures
       - href: index.qmd#labs
         text: Labs
+      - href: research-connections.qmd
+        text: Research Connections
       - text: Final Project
         menu:
           - href: final-project/proposal.qmd
