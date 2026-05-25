@@ -24,6 +24,6 @@ website:
 
 format:
   html:
-    theme: sketchy
+    theme: darkly
     toc: true
     code-tools: true
