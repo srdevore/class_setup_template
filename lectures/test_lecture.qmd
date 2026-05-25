@@ -1,7 +1,7 @@
 ---
 title: "Test Lecture"
 date: 2026-05-24
-description: "[Download PDF](lectures/test_lecture.pdf)"
+description: '<a href="lectures/test_lecture.pdf" download>Download PDF</a>'
 format:
   revealjs:
     theme: simple
