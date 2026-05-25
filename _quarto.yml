@@ -17,6 +17,16 @@ website:
         text: Lectures
       - href: index.qmd#labs
         text: Labs
+      - text: Final Project
+        menu:
+          - href: final-project/proposal.qmd
+            text: Proposal
+          - href: final-project/pre-registered-report.qmd
+            text: Pre-registered Report
+          - href: final-project/presentation.qmd
+            text: Presentation
+          - href: final-project/paper.qmd
+            text: Final Paper
 
 format:
   html:
