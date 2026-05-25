@@ -31,7 +31,7 @@ jobs:
           use-public-rspm: true
 
       - name: Install R packages
-        run: Rscript -e 'install.packages(c("rmarkdown", "knitr"))'
+        run: Rscript -e 'install.packages(c("rmarkdown", "knitr", "yaml"))'
 
       - name: Render site
         uses: quarto-dev/quarto-actions/render@v2

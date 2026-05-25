@@ -1,6 +1,7 @@
 _site/
 _teacher/
 .quarto/
+lectures/_metadata.yml
 *_files/
 *_cache/
 .Rproj.user/

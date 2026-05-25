@@ -9,6 +9,21 @@ format:
       y: 1in
 ---
 
+```{r}
+#| echo: false
+#| message: false
+#| output: asis
+library(yaml)
+config <- read_yaml("_class-config.yml")
+sched  <- read_yaml("_schedule.yml")
+
+cat(sprintf("**%s**\n\n", config$course_name))
+cat(sprintf("| | |\n|---|---|\n"))
+cat(sprintf("| Instructor | %s |\n", config$course_instructor))
+cat(sprintf("| Email | <%s> |\n", config$course_instructor_email))
+cat(sprintf("| Meeting time | %s |\n\n", config$course_meeting_time))
+```
+
 ::: {.content-visible when-format="html"}
 [Download PDF](syllabus.pdf){.btn .btn-primary download="syllabus.pdf" role="button"}
 :::
@@ -19,67 +34,56 @@ format:
 #| echo: false
 #| message: false
 
-# === EDIT THESE PARAMETERS ===
-
-start_date   <- as.Date("2026-08-24")
-end_date     <- as.Date("2026-12-18")
-meeting_days <- c("Thursday")   # e.g., c("Monday", "Wednesday", "Friday")
-
-# Holidays / non-instructional days that fall on a meeting day.
-# Key = ISO date string, value = label shown in the Topic column.
-holidays <- c(
-  "2026-11-26" = "HOLIDAY: Thanksgiving"
-)
-
-# Topic / Prep / Turn-in for each CLASS meeting in order.
-# Do NOT include holiday rows here — they are inserted automatically.
-# Add or remove rows to match the number of class meetings.
-class_content <- data.frame(
-  topic   = c("Course intro",          "TBD", "TBD", "TBD",
-              "TBD",                   "TBD", "TBD", "TBD",
-              "TBD",                   "TBD", "TBD", "TBD",
-              "TBD",                   "TBD", "TBD", "TBD"),
-  prep    = rep("", 16),
-  turn_in = rep("", 16),
-  stringsAsFactors = FALSE
-)
-
-# === GENERATED SCHEDULE — typically no need to edit below ===
-
-day_nums <- match(meeting_days,
+day_nums <- match(config$class_days,
                   c("Sunday","Monday","Tuesday","Wednesday",
                     "Thursday","Friday","Saturday")) - 1
+start_date <- as.Date(config$class_start)
+end_date   <- start_date + (config$weeks * 7 - 1)
+
 all_dates     <- seq(start_date, end_date, by = "day")
 meeting_dates <- all_dates[as.POSIXlt(all_dates)$wday %in% day_nums]
 
 ref_monday <- meeting_dates[1] -
               (as.integer(format(meeting_dates[1], "%u")) - 1)
-weeks <- as.integer(floor(as.numeric(meeting_dates - ref_monday) / 7) + 1)
+weeks_col <- as.integer(floor(as.numeric(meeting_dates - ref_monday) / 7) + 1)
 
-is_holiday <- as.character(meeting_dates) %in% names(holidays)
+holiday_keys <- names(config$holidays)
+holiday_vals <- unlist(config$holidays, use.names = FALSE)
+is_holiday <- as.character(meeting_dates) %in% holiday_keys
+
 n <- length(meeting_dates)
 topics  <- character(n)
 preps   <- character(n)
 turnins <- character(n)
 
-topics[is_holiday] <- holidays[as.character(meeting_dates[is_holiday])]
+if (any(is_holiday)) {
+  topics[is_holiday] <-
+    holiday_vals[match(as.character(meeting_dates[is_holiday]), holiday_keys)]
+}
+
+get_field <- function(s, field) {
+  v <- s[[field]]
+  if (is.null(v)) "" else as.character(v)
+}
+sessions      <- sched$sessions
+sess_topic    <- vapply(sessions, get_field, character(1), "topic")
+sess_prep     <- vapply(sessions, get_field, character(1), "prep")
+sess_turn_in  <- vapply(sessions, get_field, character(1), "turn_in")
 
 class_idx <- which(!is_holiday)
 n_class   <- length(class_idx)
-if (nrow(class_content) < n_class) {
-  pad <- n_class - nrow(class_content)
-  class_content <- rbind(
-    class_content,
-    data.frame(topic = rep("TBD", pad), prep = rep("", pad),
-               turn_in = rep("", pad), stringsAsFactors = FALSE)
-  )
+if (length(sess_topic) < n_class) {
+  pad <- n_class - length(sess_topic)
+  sess_topic   <- c(sess_topic, rep("TBD", pad))
+  sess_prep    <- c(sess_prep, rep("", pad))
+  sess_turn_in <- c(sess_turn_in, rep("", pad))
 }
-topics[class_idx]  <- class_content$topic[seq_len(n_class)]
-preps[class_idx]   <- class_content$prep[seq_len(n_class)]
-turnins[class_idx] <- class_content$turn_in[seq_len(n_class)]
+topics[class_idx]  <- sess_topic[seq_len(n_class)]
+preps[class_idx]   <- sess_prep[seq_len(n_class)]
+turnins[class_idx] <- sess_turn_in[seq_len(n_class)]
 
 schedule <- data.frame(
-  Week        = weeks,
+  Week        = weeks_col,
   Date        = format(meeting_dates, "%a, %b %d, %Y"),
   Topic       = topics,
   Prep        = preps,

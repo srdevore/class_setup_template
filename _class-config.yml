@@ -1,0 +1,18 @@
+# Course-level configuration. Single source of truth for course-wide
+# values used by the syllabus, lecture headers, and other pages.
+# Edit these per class/semester.
+
+course_name: "EDEP 625 Structural Equation Modeling"
+course_instructor: "Instructor Name"
+course_instructor_email: "instructor@example.edu"
+course_meeting_time: "Thursdays, 4:30–7:00pm"
+
+# Semester schedule
+class_start: 2026-08-24      # First day of the semester (any day in week 1)
+class_days: [Thursday]        # Days of the week the class meets
+weeks: 17                     # Number of weeks in the semester
+
+# Holidays / non-instructional days that fall on a class meeting day.
+# Key = ISO date, value = label shown in the Topic column.
+holidays:
+  "2026-11-26": "HOLIDAY: Thanksgiving"
