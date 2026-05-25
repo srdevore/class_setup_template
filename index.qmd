@@ -16,7 +16,6 @@ cat(sprintf("| Start date | %s |\n", format(class_start_date, "%b %d, %Y")))
 cat(sprintf("| End date | %s |\n\n", format(class_end_date, "%b %d, %Y")))
 ```
 
-[**Syllabus**](syllabus.html) · [**Lectures**](lectures.html) · [**R Labs**](labs.html) · [**Assignments**](assignments.html)
 
 ## Schedule
 

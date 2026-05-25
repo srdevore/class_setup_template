@@ -16,11 +16,14 @@ website:
         text: Lectures
       - href: labs.qmd
         text: R Labs
-      - href: assignments.qmd
-        text: Assignments
+      - href: research-connections.qmd
+        text: Research Connections
+      - href: fin_proj.qmd
+        text: Final Project
+  
 
 format:
   html:
-    theme: slate
+    theme: sketchy
     toc: true
     code-tools: true
