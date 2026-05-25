@@ -12,5 +12,7 @@ format:
 ## Welcome to SEM
 
 ::: {.content-visible when-profile="teacher"}
-**Teacher note:** ask students to introduce themselves
+::: {.notes}
+ask students to introduce themselves
+:::
 :::

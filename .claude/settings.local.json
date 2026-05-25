@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//home/codespace/.claude/plans/**)",
+      "Read(//home/codespace/.claude/**)",
+      "Bash(git -C /workspaces/edep_625_SEM mv edep_625_plans.md _edep_625_plans.md)",
+      "Bash(git -C /workspaces/edep_625_SEM status)"
+    ]
+  }
+}
