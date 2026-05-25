@@ -16,10 +16,6 @@ format:
 source("R/schedule.R")
 
 cat(sprintf("**%s**\n\n", class_config$course_name))
-cat("| | |\n|---|---|\n")
-cat(sprintf("| Instructor | %s |\n", class_config$course_instructor))
-cat(sprintf("| Email | <%s> |\n", class_config$course_instructor_email))
-cat(sprintf("| Meeting time | %s |\n\n", class_config$course_meeting_time))
 ```
 
 ::: {.content-visible when-format="html"}

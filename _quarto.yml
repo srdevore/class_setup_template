@@ -10,26 +10,14 @@ website:
   title: "EDEP 625 Structural Equation Modeling"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
       - href: syllabus.qmd
         text: Syllabus
       - href: index.qmd#lectures
         text: Lectures
       - href: index.qmd#labs
         text: Labs
-      - href: research-connections.qmd
-        text: Research Connections
-      - text: Final Project
-        menu:
-          - href: final-project/proposal.qmd
-            text: Proposal
-          - href: final-project/pre-registered-report.qmd
-            text: Pre-registered Report
-          - href: final-project/presentation.qmd
-            text: Presentation
-          - href: final-project/paper.qmd
-            text: Final Paper
+      - href: index.qmd#assignments
+        text: Assignments
 
 format:
   html:

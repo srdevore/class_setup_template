@@ -1,15 +1,16 @@
 # Course-level configuration. Single source of truth for course-wide
-# values used by the syllabus, lecture headers, and other pages.
-# Edit these per class/semester.
+# values used by the syllabus, lecture headers, navbar title, and other
+# pages. Edit these per class/semester — pre-render.R propagates them.
 #
-# NOTE: when changing `course_name`, also update:
-#   - `website.title` in _quarto.yml (navbar title)
-#   - `title:` in index.qmd (home page H1)
+# NOTE: changes to `course_name` may require running `quarto render` twice
+# the first time, because the navbar title in _quarto.yml is read before
+# pre-render updates it. The second render picks up the new value.
 
 course_name: "EDEP 625 Structural Equation Modeling"
 course_instructor: "Instructor Name"
 course_instructor_email: "instructor@example.edu"
 course_meeting_time: "Thursdays, 4:30–7:00pm"
+course_office_hours: "By appointment"
 
 # Semester schedule
 class_start: 2026-08-24      # First day of the semester (any day in week 1)

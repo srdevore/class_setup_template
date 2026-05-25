@@ -1,5 +1,4 @@
 ---
-title: "EDEP 625 Structural Equation Modeling"
 listing:
   - id: lectures
     contents: lectures/*.qmd
@@ -39,6 +38,7 @@ cat("| | |\n|---|---|\n")
 cat(sprintf("| Instructor | %s |\n", class_config$course_instructor))
 cat(sprintf("| Email | <%s> |\n", class_config$course_instructor_email))
 cat(sprintf("| Meeting time | %s |\n", class_config$course_meeting_time))
+cat(sprintf("| Office hours | %s |\n", class_config$course_office_hours))
 cat(sprintf("| Start date | %s |\n", format(class_start_date, "%b %d, %Y")))
 cat(sprintf("| End date | %s |\n\n", format(class_end_date, "%b %d, %Y")))
 ```
