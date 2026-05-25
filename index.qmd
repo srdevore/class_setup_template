@@ -1,31 +1,4 @@
 ---
-listing:
-  - id: lectures
-    contents: lectures/*.qmd
-    type: table
-    fields: [title, date, description]
-    field-display-names:
-      description: "Download"
-    sort: "date desc"
-    sort-ui: false
-    filter-ui: false
-  - id: labs
-    contents: rlabs/*.qmd
-    type: table
-    fields: [title, date]
-    sort: "date desc"
-    sort-ui: false
-    filter-ui: false
-  - id: assignments
-    contents:
-      - final-project/*.qmd
-      - research-connections.qmd
-    type: table
-    fields: [title, description]
-    field-display-names:
-      description: "Download"
-    sort-ui: false
-    filter-ui: false
 ---
 
 ```{r}
@@ -43,7 +16,7 @@ cat(sprintf("| Start date | %s |\n", format(class_start_date, "%b %d, %Y")))
 cat(sprintf("| End date | %s |\n\n", format(class_end_date, "%b %d, %Y")))
 ```
 
-[**Syllabus**](syllabus.html) · [**Lectures**](#lectures) · [**R Labs**](#labs) · [**Assignments**](#assignments)
+[**Syllabus**](syllabus.html) · [**Lectures**](lectures.html) · [**R Labs**](labs.html) · [**Assignments**](assignments.html)
 
 ## Schedule
 
@@ -51,18 +24,3 @@ cat(sprintf("| End date | %s |\n\n", format(class_end_date, "%b %d, %Y")))
 #| echo: false
 knitr::kable(class_schedule_df)
 ```
-
-## Lectures
-
-::: {#lectures}
-:::
-
-## R Labs
-
-::: {#labs}
-:::
-
-## Assignments
-
-::: {#assignments}
-:::

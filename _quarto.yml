@@ -7,20 +7,20 @@ profile:
   default: student
 
 website:
-  title: "EDEP 625 Structural Equation Modeling"
+  title: "Course Name"
   navbar:
     left:
       - href: syllabus.qmd
         text: Syllabus
-      - href: index.qmd#lectures
+      - href: lectures.qmd
         text: Lectures
-      - href: index.qmd#labs
-        text: Labs
-      - href: index.qmd#assignments
+      - href: labs.qmd
+        text: R Labs
+      - href: assignments.qmd
         text: Assignments
 
 format:
   html:
-    theme: cosmo
+    theme: slate
     toc: true
     code-tools: true

@@ -9,14 +9,6 @@ format:
       y: 1in
 ---
 
-```{r}
-#| echo: false
-#| message: false
-#| output: asis
-source("R/schedule.R")
-
-cat(sprintf("**%s**\n\n", class_config$course_name))
-```
 
 ::: {.content-visible when-format="html"}
 [Download PDF](syllabus.pdf){.btn .btn-primary download="syllabus.pdf" role="button"}
@@ -71,5 +63,7 @@ By the end of this course, students will be able to:
 
 ```{r}
 #| echo: false
+#| message: false
+source("R/schedule.R")
 knitr::kable(class_schedule_df)
 ```

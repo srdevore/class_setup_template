@@ -10,16 +10,15 @@ Features:
 - Examples of show on click for the teacher version so teacher can show answers (not rendered on student version)
 3. Class schedule: Weeks and dates automatically populated based on semester start/end date and class cadence. 
 
-Setup: 
-1. copy from template
-2. 
+# Quickstart
+Shows default (student) profile on public website.
 
 
 
-
-https://srdevore.github.io/edep_625_SEM/lectures/test_lecture.html#/title-slide
-
+# Teacher slides (shows )
 
 quarto render lectures/test_lecture.qmd --profile teacher
 download _teacher/lectures/test_lecture.html
 in presentation, press S to see the speaker notes version. 
+
+morph, cyorg, sketchy, slate, solar
