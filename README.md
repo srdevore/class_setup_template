@@ -20,8 +20,14 @@ Template for course website linked to course materials with features to generate
 ## Start by building a template site
 
 1. Create your own repo:
-github UI > use this template > create a new repository
-Fill in the form with your repo title, etc
+Go to [github](https://github.com/). Log in or create an account. This is referred to as the "Github UI" below.
+
+
+Navigate to the [template](https://github.com/srdevore/class_setup_template) 
+-> click green "use this template" button in top right 
+-> create a new repository
+
+Fill in the form with the repo title, etc you want to use.
 
 2. Set up page
 Settings > pages > build & deployment
