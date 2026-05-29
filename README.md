@@ -27,10 +27,12 @@ Navigate to the [template](https://github.com/srdevore/class_setup_template)
 -> click green "use this template" button in top right 
 -> create a new repository
 
-Fill in the form with the repo title, etc you want to use.
+Fill in the form with the repo title, etc you want to use. 
 
 2. Set up page
-Settings > pages > build & deployment
+This sets up a **public** web page that you can link others' to. Don't post anything sensitive. 
+
+In the github UI got to Settings > pages > build & deployment
 Select "Github Actions"
 
 Github UI > Actions > All workflows > "initial commit"
@@ -41,17 +43,21 @@ Once build & deploy finish, the url will appear under deploy. Follow link to con
 
 ## Personalize
 
-1. Start codespace
-code (tab) > code (green button) > create codespace > click the auto-generated codespace name
-OR: set up in your preferred IDE
+1. Start a codespace
+This is one easy way to get started personalizing your site. 
+
+In the github UI > your repo > code (tab) > code (green button) > create codespace > click the auto-generated codespace name
+Alternately: clone and work in your preferred IDE
 
 2. Configure class
 
 Open `_class-config.yml` and fill in your class time, dates, instructor name, semester start, class meeting day(s), timezone, holidays, etc. These values propagate to the syllabus, lecture headers, navbar title, and release-date gating.
 
-3. Set up R environment for students (Posit Cloud)
 
-Posit Cloud gives students a full RStudio session in the browser — zero install, runs anywhere. One Space per semester, one invite link given to every student, one project that contains all labs.
+3. Set up R cloud environment for students OR skip to 4 (Posit Cloud; optional)
+Out of the box, this repo sets up r labs as .qmd files that students can download and upload into their local machine. If you want a no-install startup, you can also set up Posit Cloud. 
+
+Set up one Space and one invite link per semester. This project that contains all labs.
 
 - Create a free account at https://posit.cloud
 - Create a Space named e.g. `EDEP 625 Fall 2026`
@@ -64,17 +70,34 @@ Posit Cloud gives students a full RStudio session in the browser — zero instal
 
 4. Update site
 
-Site auto-redeploys on push to `main`. Check the **Actions** tab on GitHub to watch the build; the Pages URL is shown under the latest successful `deploy` job.
+After you make changes in the repo, they need to be updated on the student-facing site. 
 
-5. Add lectures, labs, assignments, etc.
+Site auto-redeploys on git push. 
+
+You can see the progress on the github UI under
+
+actions > All workflows 
+
+click the first one. When deploy is green, the url will show up and the updates are live. 
+
+You. may need to do a hard refresh (cmd + R) 
 
 
+# Teacher version of slides
 
+To render and show the teacher version of the slides: 
 
-# Teacher slides (shows )
-
+```{bash}
+# renders 
 quarto render lectures/test_lecture.qmd --profile teacher
+```
+
+
+
+```{bash}
+#downloads
 download _teacher/lectures/test_lecture.html
+```
 in presentation, press S to see the speaker notes version. 
 
 morph, cyorg, sketchy, slate, solar
