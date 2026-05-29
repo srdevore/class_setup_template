@@ -2,6 +2,8 @@ project:
   type: website
   output-dir: _site
   pre-render: pre-render.R
+  resources:
+    - "rlabs/*.qmd"
 
 profile:
   default: student

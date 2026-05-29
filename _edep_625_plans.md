@@ -28,14 +28,6 @@ library(lavaan)
 ... lab content ...
 ```
 
-**Setup once per semester:**
-- In Lamaku, paste a single prominent link to the class website at the top of the course page
-- For each assignment, create a Lamaku dropbox (or quiz) with a one-line description and a link to the assignment page on your site
-
-**Student flow for any submitted work:**
-1. Click the assignment link in Lamaku → land on the assignment page on your site
-2. Read instructions, do the work (in Posit Cloud for R-based work, locally otherwise)
-3. Return to Lamaku → upload the deliverable to the dropbox
 
 ## Lecture-generating skill (custom Claude Code skill)
 
