@@ -1,7 +1,5 @@
-# Plan: SEM (Fall) Class Repo Setup — EDEP 625
 
-
-### 5. Posit Cloud Space
+# 5. Posit Cloud Space
 - Free account at https://posit.cloud
 - Create a Space: "EDEP 625 Fall 2026"
 - Inside the space, create one Project per rlab (or one project with weekly subfolders — your call)
@@ -30,99 +28,6 @@ library(lavaan)
 ... lab content ...
 ```
 
-## Drip-released content (profile-aware release dates)
-
-The same profile mechanism extends to handle time-gated content — pages that exist in the repo but only appear on the public site on or after a specific class meeting.
-
-**Step 1 — define the semester once in `_class-config.yml`:**
-```yaml
-class-start: 2026-09-01           # Monday of week 1
-class-days: [Tuesday, Thursday]   # which days you meet
-weeks: 16
-```
-
-**Step 2 — tag pages with a relative release date in their YAML:**
-```yaml
----
-title: "Final paper"
-release: "week 2 day 1"   # released at the start of week 2's first class meeting
----
-```
-
-Supported relative forms (defined in the pre-render script):
-- `"week N day M"` → the M-th class meeting in week N
-- `"before week N"` → the Sunday before week N begins
-- `"after week N"` → the day after week N ends
-
-**Step 3 — a single pre-render R script handles both profiles:**
-- `quarto render --profile teacher` → release dates ignored, *everything* renders (your full local preview)
-- `quarto render` (default = student) → script computes each page's actual calendar date from `_class-config.yml`, sets `draft: true` on any page whose release is still in the future
-
-**Step 4 — daily rebuild so dates advance automatically:**
-```yaml
-on:
-  push:
-    branches: [main]
-  schedule:
-    - cron: "0 8 * * *"   # daily 8am UTC rebuild
-```
-When a release date passes, the next morning's rebuild publishes the page. No push needed from you.
-
-**Why this is worth the setup effort:** next time you teach the class, you change *one line* — `class-start` in `_class-config.yml` — and every page's release date shifts forward automatically. Same `.qmd` files, same release tags, new semester. The repo becomes a reusable course template instead of a semester-specific artifact.
-
-**Unified mental model:** `--profile teacher` = full unredacted view (all content visible, all dates ignored); default = public student view (only released pages, only student-visible content within those pages).
-
-## Auto-populated schedule table
-
-Same idea, applied to the syllabus: a single `_schedule.yml` is the source of truth for weekly topics/readings/assignments, and dates get computed from `_class-config.yml` at render time. The syllabus table never has a hard-coded date.
-
-**`_schedule.yml`** — the content you edit each year (or leave alone if reusing):
-```yaml
-schedule:
-  - week: 1
-    topic: "Intro to SEM and lavaan"
-    readings: "Bollen Ch 1"
-    assignment: "Read syllabus"
-  - week: 2
-    topic: "Path analysis"
-    readings: "Kline Ch 4"
-    assignment: "HW 1 due; Final paper requirements released"
-  # ...
-```
-
-**`syllabus.qmd`** has one R chunk that renders the table:
-```{r}
-#| echo: false
-library(yaml); library(dplyr); library(knitr)
-source("R/class-dates.R")   # same helper used by the release-date pre-render
-
-cfg   <- read_yaml("_class-config.yml")
-sched <- read_yaml("_schedule.yml")$schedule
-
-sched_df <- bind_rows(sched) |>
-  mutate(date = compute_class_date(cfg, week, day = 1)) |>
-  select(week, date, topic, readings, assignment)
-
-kable(sched_df, col.names = c("Week", "Date", "Topic", "Readings", "Assignment"))
-```
-
-The `compute_class_date()` helper lives in `R/class-dates.R` and is **shared** between two systems:
-- The syllabus/schedule table rendering
-- The pre-render script that enforces page release dates
-
-One source of date logic, used in both places.
-
-**Reusability payoff (the whole point):**
-- Editing one line in `_class-config.yml` (`class-start: 2027-08-30`) reflows every date in the syllabus *and* shifts every page release date forward
-- Editing `_schedule.yml` lets you tweak topics/readings/assignments without touching dates
-- The same `_schedule.yml` can also drive the homepage's week-by-week listing — one file, three pages all in sync
-
-(If you'd rather not maintain two YAMLs, you can collapse them — put the `schedule:` block inside `_class-config.yml`. I'd keep them separate, since class metadata changes once a year while topic/reading edits happen more often.)
-
-## Submissions via Lamaku (Brightspace)
-
-All content lives on the Quarto site; Lamaku handles only what it's actually good at — collecting submissions and storing grades. The two systems don't integrate; they don't need to.
-
 **Setup once per semester:**
 - In Lamaku, paste a single prominent link to the class website at the top of the course page
 - For each assignment, create a Lamaku dropbox (or quiz) with a one-line description and a link to the assignment page on your site
@@ -131,28 +36,6 @@ All content lives on the Quarto site; Lamaku handles only what it's actually goo
 1. Click the assignment link in Lamaku → land on the assignment page on your site
 2. Read instructions, do the work (in Posit Cloud for R-based work, locally otherwise)
 3. Return to Lamaku → upload the deliverable to the dropbox
-
-**Your time in Lamaku per week:** ~2 minutes (create the dropbox, paste the link). All authoring stays in your Quarto/git workflow; grading stays in Lamaku where the gradebook lives.
-
-## Student workflow (the experience this designs for)
-
-1. Day 1: you share two URLs — the class website and the Posit Cloud Space invite.
-2. Student bookmarks the website, makes a free Posit Cloud account (~30 sec), joins the Space.
-3. Every week: student visits website → reads/views the slide deck → clicks "Open in Posit Cloud" on the lab page → clicks "Save a Permanent Copy" → runs the lab in their browser.
-4. Assignments: click the assignment link in Lamaku → instructions open on your site → do the work (Posit Cloud or local) → return to Lamaku and upload to the dropbox.
-
-## Teacher workflow (yours, each week)
-
-1. Edit/author the week's `.qmd` files in RStudio locally
-2. `git push` — site rebuilds and deploys automatically (1–2 min)
-3. Drag the new rlab `.qmd` into the Posit Cloud project for that week (~30 sec)
-4. Done. No emails, no attachments.
-
-## Migration notes from EDEP 606
-- Your existing 2026 `rlab_week*.qmd` files are already in the right format — adapt as templates for SEM rlabs
-- `.pptx` workflow gets replaced by Quarto revealjs HTML decks; you can dual-render to both if you want
-- `data/` convention from the just-reorganized repo carries over directly
-- Take-home assignment patterns (e.g., your "Take Home Assignment 2" structure) translate one-to-one into `assignments/`
 
 ## Lecture-generating skill (custom Claude Code skill)
 
